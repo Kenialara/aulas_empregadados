@@ -1,3 +1,3 @@
 select
     * 
-from vulnerabilidade
+from vulnerabilidades
