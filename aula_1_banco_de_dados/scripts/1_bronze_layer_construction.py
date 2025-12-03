@@ -70,7 +70,7 @@ def read_csv_lowercase(path):
     """
     try:
         # 'low_memory=False' para evitar avisos ao lidar com datasets grandes.
-        df = pd.read_csv(path, low_memory=False)
+        df = pd.read_csv(path, low_memory=False, encoding="windows-1252")
         # Normaliza as colunas: remove espaços e converte para minúsculas.
         df.columns = df.columns.str.strip().str.lower()
         return df
