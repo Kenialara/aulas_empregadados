@@ -1,3 +1,6 @@
+import sys
+sys.stdout.reconfigure(encoding='latin1')
+
 import os
 import pandas as pd
 from dotenv import load_dotenv
@@ -123,7 +126,7 @@ def load_bronze():
                     )
                 except:
                     pass            
-                
+
             df.to_sql(table_name, eng, if_exists="replace", index=False)
             print(f"Dados do arquivo '{fname}' carregados com sucesso na tabela '{table_name}'.")
 
