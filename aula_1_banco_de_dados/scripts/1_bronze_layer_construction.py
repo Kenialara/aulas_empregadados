@@ -1,5 +1,5 @@
 import sys
-sys.stdout.reconfigure(encoding='latin1')
+sys.stdout.reconfigure(encoding='latin-1')
 
 import os
 import pandas as pd
