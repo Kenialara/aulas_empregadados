@@ -1,6 +1,3 @@
-import sys
-sys.stdout.reconfigure(encoding='latin-1')
-
 import os
 import pandas as pd
 from dotenv import load_dotenv
@@ -73,7 +70,7 @@ def read_csv_lowercase(path):
     """
     try:
         # 'low_memory=False' para evitar avisos ao lidar com datasets grandes.
-        df = pd.read_csv(path, low_memory=False, encoding="windows-1252")
+        df = pd.read_csv(path, low_memory=False)
         # Normaliza as colunas: remove espaços e converte para minúsculas.
         df.columns = df.columns.str.strip().str.lower()
         return df
@@ -116,18 +113,6 @@ def load_bronze():
             df['execution_date'] = snapshot_date
 
             # Grava os dados no banco. 'if_exists="replace"' substitui a tabela a cada execução.
-            for col in df.columns:
-                try:
-                    df[col] = (
-                        df[col]
-                        .astype(str)
-                        .str.normalize("NFKD")
-                        .str.encode("ascii", "ignore")
-                        .str.decode("ascii", "ignore")
-                    )
-                except:
-                    pass            
-
             df.to_sql(table_name, eng, if_exists="replace", index=False)
             print(f"Dados do arquivo '{fname}' carregados com sucesso na tabela '{table_name}'.")
 
