@@ -113,6 +113,17 @@ def load_bronze():
             df['execution_date'] = snapshot_date
 
             # Grava os dados no banco. 'if_exists="replace"' substitui a tabela a cada execução.
+            for col in df.columns:
+                try:
+                    df[col] = (
+                        df[col]
+                        .astype(str)
+                        .str.encode("latin1", errors="ignore")
+                        .str.decode("utf-8", errors="ignore")
+                    )
+                except:
+                    pass            
+                
             df.to_sql(table_name, eng, if_exists="replace", index=False)
             print(f"Dados do arquivo '{fname}' carregados com sucesso na tabela '{table_name}'.")
 
