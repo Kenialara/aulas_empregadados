@@ -121,8 +121,9 @@ def load_bronze():
                     df[col] = (
                         df[col]
                         .astype(str)
-                        .str.encode("latin1", errors="ignore")
-                        .str.decode("utf-8", errors="ignore")
+                        .str.normalize("NFKD")
+                        .str.encode("ascii", "ignore")
+                        .str.decode("ascii", "ignore")
                     )
                 except:
                     pass            
